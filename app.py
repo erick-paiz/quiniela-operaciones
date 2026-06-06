@@ -57,7 +57,7 @@ if "pronosticos" not in st.session_state:
 if "usuarios" not in st.session_state:
     st.session_state.usuarios = list(st.session_state.pronosticos.keys())
 
-hora_actual = datetime.now()
+hora_actual = datetime.utcnow() - timedelta(hours=6)
 st.sidebar.markdown(f"**🕒 Hora actual:**\n`{hora_actual.strftime('%Y-%m-%d %H:%M:%S')}`")
 
 # 5. PESTAÑAS DE LA APLICACIÓN
