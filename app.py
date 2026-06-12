@@ -121,17 +121,24 @@ with tab1:
             boton_enviar = st.form_submit_button("Guardar / Actualizar Pronósticos")
             
         if boton_enviar:
+            # 1. DESCARGAR VERSIÓN FRESCA DE LA NUBE AL INSTANTE
+            datos_actualizados_nube = cargar_pronosticos()
+            
+            # 2. INYECTAR SOLO LOS DATOS DEL USUARIO ACTUAL
+            if nombre_input not in datos_actualizados_nube:
+                datos_actualizados_nube[nombre_input] = {}
+                
+            datos_actualizados_nube[nombre_input].update(nuevos_pronosticos_temp)
+            
+            # 3. SUBIR LA VERSIÓN CORRECTA A LA BÓVEDA
+            guardar_pronosticos(datos_actualizados_nube)
+            
+            # 4. ACTUALIZAR MEMORIA LOCAL
+            st.session_state.pronosticos = datos_actualizados_nube
             if nombre_input not in st.session_state.usuarios:
                 st.session_state.usuarios.append(nombre_input)
-            if nombre_input not in st.session_state.pronosticos:
-                st.session_state.pronosticos[nombre_input] = {}
                 
-            st.session_state.pronosticos[nombre_input].update(nuevos_pronosticos_temp)
-            
-            # MAGIA: Guardar directamente en la bóveda externa
-            guardar_pronosticos(st.session_state.pronosticos)
-            
-            st.success(f"¡Pronósticos de {nombre_input} blindados permanentemente en la nube!")
+            st.success(f"¡Pronósticos de {nombre_input} blindados y sincronizados sin errores!")
     else:
         st.warning("⚠️ Debes ingresar tu nombre arriba para poder ver y editar los partidos.")
 
