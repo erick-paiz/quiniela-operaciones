@@ -115,7 +115,7 @@ with tab1:
                         continue
                         
                     hora_partido = datetime.strptime(info["fecha_hora"], "%Y-%m-%d %H:%M")
-                    hora_limite_cierre = hora_partido - timedelta(minutes=15)
+                    hora_limite_cierre = hora_partido + timedelta(minutes=45)
                     
                     if hora_actual >= hora_limite_cierre:
                         deshabilitado = True
