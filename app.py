@@ -23,13 +23,13 @@ df_partidos['goles_v_real'] = df_partidos['goles_v_real'].astype(object).where(d
 PARTIDOS = {}
 for _, row in df_partidos.iterrows():
     PARTIDOS[int(row['id'])] = {
-        "fase": str(row['fase']).strip(),
-        "local": str(row['local']).strip(),
-        "visita": str(row['visita']).strip(),
-        "fecha_hora": str(row['fecha_hora']).strip(),
-        "goles_l_real": row['goles_l_real'],
-        "goles_v_real": row['goles_v_real']
-    }
+    "fase": str(row['fase']).strip(),
+    "local": str(row['local']).strip(),
+    "visita": str(row['visita']).strip(),
+    "fecha_hora": str(row['fecha_hora']).strip()[:16], 
+    "goles_l_real": row['goles_l_real'],
+    "goles_v_real": row['goles_v_real']
+}
 
 # 3. CONEXIÓN A LAS BÓVEDAS
 BIN_ID = st.secrets["BIN_ID_ELIMINATORIAS"]
