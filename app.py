@@ -117,7 +117,7 @@ with tab1:
                     
                     partidos_mostrados += 1
                     hora_partido = datetime.strptime(info["fecha_hora"], "%Y-%m-%d %H:%M")
-                    hora_limite = hora_partido - timedelta(minutes=1500)
+                    hora_limite = hora_partido + timedelta(minutes=1500)
                     
                     if hora_actual >= hora_limite:
                         deshabilitado = True
